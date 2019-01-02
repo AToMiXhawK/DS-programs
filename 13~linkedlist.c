@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
+struct Node                               // Create a structure for node
 {
   int data;
   struct Node *next;
 };
 
-void insert_beg(struct Node** head, int new_data)
+void insert_beg(struct Node** head, int new_data)       // insert at the beginning of list
 {
 
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
@@ -17,18 +17,18 @@ void insert_beg(struct Node** head, int new_data)
     printf("\n%d inserted at the begining of the linked list\n",new_data);
 }
 
-void insert_end(struct Node** head, int new_data)
+void insert_end(struct Node** head, int new_data)     // insert at the end of list
 {
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
     struct Node *last = *head;
     new_node->data  = new_data;
     new_node->next = NULL;
-    if (*head == NULL)
+    if (*head == NULL)                          // check list is empty
     {
        *head = new_node;
        return;
     }
-    while (last->next != NULL)
+    while (last->next != NULL)                 // traverse to last node
         last = last->next;
 
     last->next = new_node;
@@ -36,12 +36,12 @@ void insert_end(struct Node** head, int new_data)
     return;
 }
 
-void insert_mid(struct Node** head, int new_data, int key)
+void insert_mid(struct Node** head, int new_data, int key)      // insert after a given key if exixts
 {
 	struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
 	struct Node *last = *head;
 
-	while (last->next != NULL)
+	while (last->next != NULL)                 // traverse to node with given key
 	{
 		if(last->data == key)
 		{
@@ -52,23 +52,23 @@ void insert_mid(struct Node** head, int new_data, int key)
 			return;
 		}
         last = last->next;
-    }
-    if(last->data == key)
-		{
+  }
+  if(last->data == key)             // check if the last node is the key
+	{
 			printf("\n%d inserted after %d in the linked list\n",new_data,key);
     		new_node->data  = new_data;
     		new_node->next = NULL;
     		last->next = new_node;
     		return;
-		}
+	}
 	else
     	printf("\nKey Not Found\n");
-    return;
+  return;
 }
 
-void printList(struct Node *node)
+void printList(struct Node *node)           // function to print the linkedlist
 {
-  if(node == NULL)
+  if(node == NULL)          // check list is empty
   	printf("\nNo Elements in Linked List!!\n\n");
   else
   {
@@ -82,9 +82,9 @@ void printList(struct Node *node)
   }
 }
 
-void delete_beg(struct Node** head)
+void delete_beg(struct Node** head)     // delete node from beginning
 {
-	if((*head) == NULL )
+	if((*head) == NULL )                         // check list is empty
 	{
 		printf("\nNo Element to be deleted\n");
 		return;
@@ -95,15 +95,15 @@ void delete_beg(struct Node** head)
 	return;
 }
 
-void delete_end(struct Node** head)
+void delete_end(struct Node** head)     // delete node from the end of list
 {
-	if((*head) == NULL )
+	if((*head) == NULL )                       // check list is empty
 	{
 		printf("\nNo Element to be deleted\n");
 		return;
 	}
   struct Node *next_node = (*head);
-  if(next_node->next == NULL)
+  if(next_node->next == NULL)             // check if the fist node is the last node (only 1 node in list)
   {
     printf("\n%d deleted from linked list\n",next_node->data);
     *head = NULL;
@@ -111,33 +111,33 @@ void delete_end(struct Node** head)
   }
 	struct Node *prev_node = (*head);
 	next_node = next_node->next;
-	while (next_node->next != NULL)
+	while (next_node->next != NULL)      // traverse to the last
 	{
-        next_node = next_node->next;
-        prev_node = prev_node->next;
+        next_node = next_node->next;      // last node
+        prev_node = prev_node->next;      // second last node
     }
     printf("\n%d deleted from linked list\n",next_node->data);
-    prev_node->next = NULL;
+    prev_node->next = NULL;              // link part of decond last node set to NULL
     return;
 }
 
-void delete_mid(struct Node** head, int key)
+void delete_mid(struct Node** head, int key)      // delete node with given key
 {
-	if((*head) == NULL )
+	if((*head) == NULL )                       // check list is empty
 	{
 		printf("\nNo Element to be deleted\n");
 		return;
 	}
-	struct Node *next_node = (*head);
-	struct Node *prev_node = (*head);
-	if(next_node->data == key)
+	struct Node *next_node = (*head);      // node with given key
+	struct Node *prev_node = (*head);      // node previous to given key
+	if(next_node->data == key)             // check if first node is the key
 		{
 			printf("\n%d deleted from linked list\n",next_node->data);
     		(*head)    = next_node->next;
     		return;
 		}
 	next_node = next_node->next;
-	while (next_node->next != NULL)
+	while (next_node->next != NULL)        // traverse to key
 	{
 		if(next_node->data == key)
 		{
@@ -148,7 +148,7 @@ void delete_mid(struct Node** head, int key)
 		next_node = next_node->next;
         prev_node = prev_node->next;
 	}
-	if(next_node->data == key)
+	if(next_node->data == key)             // check if the last node is the key
 		{
 			printf("\n%d deleted from linked list\n",next_node->data);
     		prev_node->next = NULL;
@@ -159,9 +159,9 @@ void delete_mid(struct Node** head, int key)
 	return;
 }
 
-int main()
+int main()                            // main function
 {
-	struct Node* head = NULL;
+	struct Node* head = NULL;           // set head = NULL to initialise the list
 	int o, elt, key, f = 0;
   	while(f==0)
 	{
